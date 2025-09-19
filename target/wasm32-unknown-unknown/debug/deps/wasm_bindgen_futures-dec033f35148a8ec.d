@@ -1,0 +1,9 @@
+/Users/arashnamazi/Desktop/Programlama/Web programlama/Hashemi/target/wasm32-unknown-unknown/debug/deps/wasm_bindgen_futures-dec033f35148a8ec.d: /Users/arashnamazi/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wasm-bindgen-futures-0.4.53/src/lib.rs /Users/arashnamazi/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wasm-bindgen-futures-0.4.53/src/queue.rs /Users/arashnamazi/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wasm-bindgen-futures-0.4.53/src/task/singlethread.rs
+
+/Users/arashnamazi/Desktop/Programlama/Web programlama/Hashemi/target/wasm32-unknown-unknown/debug/deps/libwasm_bindgen_futures-dec033f35148a8ec.rlib: /Users/arashnamazi/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wasm-bindgen-futures-0.4.53/src/lib.rs /Users/arashnamazi/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wasm-bindgen-futures-0.4.53/src/queue.rs /Users/arashnamazi/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wasm-bindgen-futures-0.4.53/src/task/singlethread.rs
+
+/Users/arashnamazi/Desktop/Programlama/Web programlama/Hashemi/target/wasm32-unknown-unknown/debug/deps/libwasm_bindgen_futures-dec033f35148a8ec.rmeta: /Users/arashnamazi/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wasm-bindgen-futures-0.4.53/src/lib.rs /Users/arashnamazi/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wasm-bindgen-futures-0.4.53/src/queue.rs /Users/arashnamazi/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wasm-bindgen-futures-0.4.53/src/task/singlethread.rs
+
+/Users/arashnamazi/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wasm-bindgen-futures-0.4.53/src/lib.rs:
+/Users/arashnamazi/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wasm-bindgen-futures-0.4.53/src/queue.rs:
+/Users/arashnamazi/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wasm-bindgen-futures-0.4.53/src/task/singlethread.rs:

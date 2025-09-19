@@ -1,0 +1,10 @@
+[workspace]
+members = ["backend", "frontend"]
+
+[[workspace.metadata.leptos]]
+name = "frontend"
+bin-package = "frontend"
+lib-package = "frontend"
+site-root = "frontend"
+site-pkg = "index.html"
+out-dir = "dist"

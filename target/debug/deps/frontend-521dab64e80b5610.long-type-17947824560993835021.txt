@@ -1,0 +1,1 @@
+UserFormComponentPropsBuilder<{closure@frontend/src/lib.rs:294:21: 294:29}, {closure@frontend/src/lib.rs:288:23: 288:31}, ((leptos::ReadSignal<User>,), (leptos::WriteSignal<User>,), (Vec<&str>,), ({closure@frontend/src/lib.rs:294:21: 294:29},), ({closure@frontend/src/lib.rs:288:23: 288:31},))>

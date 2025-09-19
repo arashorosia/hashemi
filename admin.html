@@ -1,0 +1,1784 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phoenix TechWorks Group - داشبورد ادمین</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --panel-bg: rgba(15, 15, 15, 0.9);
+            --select-tint: rgba(255, 255, 255, 0.05);
+            --select-open-bg: rgba(255, 255, 255, 0.12);
+        }
+        
+        /* CSS Updated - Modal Theme Unified v3.1 - Animation Reset - 2025-09-19-17:22 */
+        body {
+            font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0a0a;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
+            min-height: 100vh;
+            color: #ffffff;
+            direction: rtl;
+        }
+        
+        .header {
+            background: rgba(15, 15, 15, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #7877c6 0%, #ff77c6 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .logo-text h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+        
+        .logo-text p {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #7877c6 0%, #ff77c6 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        
+        .logout-btn {
+            background: rgba(239, 68, 68, 0.1);
+            color: #f87171;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+        
+        .logout-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .dashboard-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .dashboard-title h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #7877c6 0%, #ff77c6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .dashboard-title p {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .admin-panel {
+            background: rgba(15, 15, 15, 0.9);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        
+        .panel-header {
+            background: linear-gradient(135deg, rgba(120, 119, 198, 0.1) 0%, rgba(255, 119, 198, 0.05) 100%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .panel-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .add-user-btn {
+            background: linear-gradient(135deg, #7877c6 0%, #ff77c6 100%);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .add-user-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(120, 119, 198, 0.3);
+        }
+        
+        .users-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .users-table th,
+        .users-table td {
+            padding: 1rem;
+            text-align: right;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .users-table th {
+            background: rgba(120, 119, 198, 0.1);
+            font-weight: 600;
+            color: #7877c6;
+        }
+        
+        .users-table tbody tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .action-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.875rem;
+            margin: 0 0.25rem;
+            transition: all 0.3s ease;
+        }
+        
+        .edit-btn {
+            background: rgba(34, 197, 94, 0.1);
+            color: #4ade80;
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+        
+        .edit-btn:hover {
+            background: rgba(34, 197, 94, 0.2);
+        }
+        
+        .reset-btn {
+            background: rgba(251, 191, 36, 0.1);
+            color: #fbbf24;
+            border: 1px solid rgba(251, 191, 36, 0.2);
+        }
+        
+        .reset-btn:hover {
+            background: rgba(251, 191, 36, 0.2);
+        }
+        
+        .delete-btn {
+            background: rgba(239, 68, 68, 0.1);
+            color: #f87171;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+        
+        .delete-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            
+            /* START: تغییرات اعمال شده */
+            background: #0a0a0a;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
+            /* END: تغییرات اعمال شده */
+            
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            background: rgba(15, 15, 15, 0.9);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(120, 119, 198, 0.8), transparent);
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, rgba(120, 119, 198, 0.1) 0%, rgba(255, 119, 198, 0.05) 100%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .modal-body {
+            padding: 2rem;
+            background: rgba(15, 15, 15, 0.9);
+            /* sync CSS var with actual bg for precise matching */
+            --panel-bg: rgba(15, 15, 15, 0.9);
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #444;
+        }
+
+        .form-section h4 {
+            color: #00d4ff;
+            margin-bottom: 15px;
+        }
+
+        .photo-upload {
+            text-align: center;
+        }
+
+        .photo-preview {
+            width: 150px;
+            height: 150px;
+            border: 2px dashed #555;
+            border-radius: 10px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #2a2a2a;
+            overflow: hidden;
+        }
+
+        .photo-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .no-photo {
+            color: #777;
+            text-align: center;
+        }
+
+        .no-photo i {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .photo-controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: white;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #7877c6;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(120, 119, 198, 0.2);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .date-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .date-input-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .date-input-group label {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.25rem;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group.full-width .date-group {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #7877c6 0%, #ff77c6 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(120, 119, 198, 0.3);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        
+        .search-box {
+            margin: 1.5rem 2rem;
+            position: relative;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 0.75rem 3rem 0.75rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: white;
+            font-family: inherit;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: #7877c6;
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .search-box .search-icon {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Persian Date Input Styling */
+        .date-input-wrapper {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .date-input-wrapper input {
+            width: 100%;
+            padding: 0.75rem 3rem 0.75rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: white;
+            font-family: inherit;
+            font-size: 0.875rem;
+        }
+
+        .date-input-wrapper input:focus {
+            outline: none;
+            border-color: #7877c6;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        /* Hide native date indicator to match custom icon */
+        .date-input-wrapper input[type="date"]::-webkit-calendar-picker-indicator {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .date-input-wrapper input[type="date"] {
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .calendar-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: none;
+            border: none;
+            padding: 0;
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.6;
+            z-index: 2;
+        }
+
+        .calendar-icon:hover {
+            opacity: 1;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .calendar-icon svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .calendar-icon:hover svg {
+            color: #7877c6;
+        }
+        
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .status-active {
+            background: rgba(34, 197, 94, 0.1);
+            color: #4ade80;
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+        
+        .status-inactive {
+            background: rgba(239, 68, 68, 0.1);
+            color: #f87171;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        /* استایل برای گزینه‌های داخل منوی تعداد کار روزانه */
+        #dailyWorkCount option {
+            background: transparent; /* از پس‌زمینه‌ی خود کادر استفاده کن */
+            color: white; /* رنگ متن سفید */
+            padding: 8px; /* کمی فاصله داخلی برای زیبایی */
+        }
+
+        /* استایل برای هاور (رفتن موس روی گزینه‌ها) */
+        #dailyWorkCount option:hover {
+            background: #7877c6; /* رنگ بنفش مشابه تم اصلی */
+            cursor: pointer;
+        }
+
+        /* استایل برای گزینه‌های داخل منوی نوع کار (هم‌رنگ با تعداد کار روزانه) */
+        #jobType option {
+            background: transparent; /* از پس‌زمینه‌ی خود کادر استفاده کن */
+            color: white;
+            padding: 8px;
+        }
+
+        #jobType option:hover {
+            background: #7877c6; /* رنگ بنفش مشابه تم اصلی */
+            cursor: pointer;
+        }
+
+        /* یکسان‌سازی ظاهر منوی باز هر دو select (نوع کار و تعداد کار روزانه) */
+        #jobType, #dailyWorkCount {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 0.75rem 1rem !important; /* فاصله داخلی مطلوب */
+            /* پدینگ هم‌رنگ پس‌زمینه خود سلکت (خاکستری) */
+            background: var(--select-tint);
+            background-clip: padding-box;
+        }
+
+        /* هنگام باز بودن select، پس‌زمینه‌ی کادر دقیقا هم‌رنگ والد باشد (بدون روشن‌تر شدن) */
+        #jobType[size]:not([size="0"]),
+        #dailyWorkCount[size]:not([size="0"]) {
+            background: var(--select-open-bg) !important;
+            background-clip: padding-box;
+        }
+
+        /* گزینه‌ها در حالت باز از پس‌زمینه‌ی خود کادر استفاده کنند */
+        #jobType[size]:not([size="0"]) option,
+        #dailyWorkCount[size]:not([size="0"]) option {
+            background: transparent;
+        }
+
+        /* حالت هاور و انتخاب‌شده همچنان قابل تشخیص بماند */
+        #jobType[size]:not([size="0"]) option:hover,
+        #dailyWorkCount[size]:not([size="0"]) option:hover {
+            background: #7877c6;
+        }
+
+        /* یکسان‌سازی رنگ گزینه انتخاب‌شده و فوکوس‌شده (برای برخی مرورگرها) */
+        #jobType option:checked, #dailyWorkCount option:checked,
+        #jobType option:focus,   #dailyWorkCount option:focus {
+            background: #7877c6;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-section">
+            <div class="logo-icon">🔐</div>
+            <div class="logo-text">
+                <h1>Phoenix TechWorks Group</h1>
+                <p>داشبورد مدیریت</p>
+            </div>
+        </div>
+        <div class="user-info">
+            <div class="user-avatar">A</div>
+            <span>مدیر سیستم</span>
+            <button class="logout-btn" onclick="logout()">خروج</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="dashboard-title">
+            <h2>داشبورد مدیریت کاربران</h2>
+            <p>مدیریت اطلاعات پرسنل و کاربران سیستم</p>
+        </div>
+
+        <div class="admin-panel">
+            <div class="panel-header">
+                <div class="panel-title">
+                    👥 مدیریت کاربران
+                </div>
+                <button class="add-user-btn" onclick="openAddUserModal()">
+                    ➕ افزودن کاربر جدید
+                </button>
+            </div>
+
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="جستجو بر اساس نام، کد ملی، ایمیل..." oninput="searchUsers()">
+                <span class="search-icon">🔍</span>
+            </div>
+
+            <div id="usersTableContainer">
+                <table class="users-table">
+                    <thead>
+                        <tr>
+                            <th>نام و نام خانوادگی</th>
+                            <th>کد ملی</th>
+                            <th>ایمیل</th>
+                            <th>شناسه پرسنلی</th>
+                            <th>نوع کار</th>
+                            <th>وضعیت</th>
+                            <th>عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody">
+                        <!-- داده‌های کاربران اینجا نمایش داده می‌شوند -->
+                    </tbody>
+                </table>
+                <div id="emptyState" class="empty-state" style="display: none;">
+                    <div class="empty-state-icon">👤</div>
+                    <h3>هیچ کاربری یافت نشد</h3>
+                    <p>برای شروع، کاربر جدیدی اضافه کنید</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal افزودن/ویرایش کاربر -->
+    <div id="userModal" class="modal">
+        <div class="modal-content">
+                                <div class="modal-header">
+                        <h3 id="modalTitle">افزودن کاربر جدید</h3>
+                        <div>
+                            <button type="button" class="btn btn-secondary" onclick="fillSampleData()" style="margin-left: 10px;">پر کردن داده‌های نمونه</button>
+                            <button type="button" class="close-btn" onclick="closeUserModal()">&times;</button>
+                        </div>
+                    </div>
+            <div class="modal-body">
+                <form id="userForm">
+                    <!-- بخش آپلود عکس -->
+                    <div class="form-section">
+                        <h4>عکس پرسنلی</h4>
+                        <div class="form-group photo-upload">
+                            <div class="photo-preview" id="photoPreview">
+                                <img id="previewImage" src="" alt="پیش‌نمایش عکس" style="display: none;">
+                                <div class="no-photo" id="noPhotoText">
+                                    <i style="font-size: 48px;">📷</i>
+                                    <p>عکس انتخاب نشده</p>
+                                </div>
+                            </div>
+                            <div class="photo-controls">
+                                <input type="file" id="userPhoto" name="userPhoto" accept="image/*" style="display: none;">
+                                <button type="button" class="btn btn-secondary" onclick="document.getElementById('userPhoto').click()">انتخاب عکس</button>
+                                <button type="button" class="btn btn-danger" onclick="removePhoto()" id="removePhotoBtn" style="display: none;">حذف عکس</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="firstName">نام *</label>
+                            <input type="text" id="firstName" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">نام خانوادگی *</label>
+                            <input type="text" id="lastName" name="lastName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fatherName">نام پدر</label>
+                            <input type="text" id="fatherName" name="fatherName">
+                        </div>
+                        <div class="form-group">
+                            <label for="nationalId">کد ملی *</label>
+                            <input type="text" id="nationalId" name="nationalId" required maxlength="10">
+                        </div>
+                        <div class="form-group">
+                            <label for="birthPlace">محل تولد</label>
+                            <input type="text" id="birthPlace" name="birthPlace">
+                        </div>
+                        <div class="form-group full-width">
+                            <label>تاریخ تولد</label>
+                            <div class="date-group">
+                                <div class="date-input-group">
+                                    <label for="birthDateShamsi">شمسی</label>
+                                    <div class="date-input-wrapper">
+                                        <input type="text" id="birthDateShamsi" name="birthDateShamsi" placeholder="1370/01/01" onchange="convertShamsiToMiladi('birth')" onclick="showPersianCalendar('birth', 'shamsi')">
+                                        <span class="calendar-icon" onclick="showPersianCalendar('birth', 'shamsi')"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z" fill="currentColor"/></svg></span>
+                                    </div>
+                                </div>
+                                <div class="date-input-group">
+                                    <label for="birthDateMiladi">میلادی</label>
+                                    <div class="date-input-wrapper">
+                                        <input type="date" id="birthDateMiladi" name="birthDateMiladi" onchange="convertMiladiToShamsi('birth')">
+                                        <span class="calendar-icon" onclick="openNativeDatePicker('birthDateMiladi')">
+                                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z" fill="currentColor"/>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="mobile">شماره موبایل *</label>
+                            <input type="tel" id="mobile" name="mobile" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">شماره تلفن منزل</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                            <label for="address">آدرس منزل</label>
+                            <textarea id="address" name="address" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="employeeId">شناسه پرسنلی *</label>
+                            <input type="text" id="employeeId" name="employeeId" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">ایمیل *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="jobType">نوع کار</label>
+                            <select id="jobType" name="jobType">
+                                <option value="">انتخاب کنید</option>
+                                <option value="simple-a">کار ساده نوع A</option>
+                                <option value="simple-b">کار ساده نوع B</option>
+                                <option value="simple-c">کار ساده نوع C</option>
+                                <option value="advanced-a">کارالگوریتم پیشرفته نوع A</option>
+                                <option value="advanced-b">کارالگوریتم پیشرفته نوع B</option>
+                                <option value="advanced-c">کارالگوریتم پیشرفته نوع C</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="dailyWorkCount">تعداد کار روزانه</label>
+                            <select id="dailyWorkCount" name="dailyWorkCount">
+                                <option value="">انتخاب کنید</option>
+                                <option value="100">100</option>
+                                <option value="200">200</option>
+                                <option value="300">300</option>
+                                <option value="400">400</option>
+                                <option value="500">500</option>
+                                <option value="600">600</option>
+                                <option value="700">700</option>
+                                <option value="800">800</option>
+                                <option value="900">900</option>
+                                <option value="1000">1000</option>
+                                <option value="1100">1100</option>
+                                <option value="1200">1200</option>
+                                <option value="1300">1300</option>
+                                <option value="1400">1400</option>
+                                <option value="1500">1500</option>
+                                <option value="1600">1600</option>
+                                <option value="1700">1700</option>
+                                <option value="1800">1800</option>
+                                <option value="1900">1900</option>
+                                <option value="2000">2000</option>
+                                <option value="2100">2100</option>
+                                <option value="2200">2200</option>
+                                <option value="2300">2300</option>
+                                <option value="2400">2400</option>
+                                <option value="2500">2500</option>
+                                <option value="2600">2600</option>
+                                <option value="2700">2700</option>
+                                <option value="2800">2800</option>
+                                <option value="2900">2900</option>
+                                <option value="3000">3000</option>
+                                <option value="3100">3100</option>
+                                <option value="3200">3200</option>
+                                <option value="3300">3300</option>
+                                <option value="3400">3400</option>
+                                <option value="3500">3500</option>
+                                <option value="3600">3600</option>
+                                <option value="3700">3700</option>
+                                <option value="3800">3800</option>
+                                <option value="3900">3900</option>
+                                <option value="4000">4000</option>
+                                <option value="4100">4100</option>
+                                <option value="4200">4200</option>
+                                <option value="4300">4300</option>
+                                <option value="4400">4400</option>
+                                <option value="4500">4500</option>
+                                <option value="4600">4600</option>
+                                <option value="4700">4700</option>
+                                <option value="4800">4800</option>
+                                <option value="4900">4900</option>
+                                <option value="5000">5000</option>
+                                <option value="5100">5100</option>
+                                <option value="5200">5200</option>
+                                <option value="5300">5300</option>
+                                <option value="5400">5400</option>
+                                <option value="5500">5500</option>
+                                <option value="5600">5600</option>
+                                <option value="5700">5700</option>
+                                <option value="5800">5800</option>
+                                <option value="5900">5900</option>
+                                <option value="6000">6000</option>
+                                <option value="6100">6100</option>
+                                <option value="6200">6200</option>
+                                <option value="6300">6300</option>
+                                <option value="6400">6400</option>
+                                <option value="6500">6500</option>
+                                <option value="6600">6600</option>
+                                <option value="6700">6700</option>
+                                <option value="6800">6800</option>
+                                <option value="6900">6900</option>
+                                <option value="7000">7000</option>
+                                <option value="7100">7100</option>
+                                <option value="7200">7200</option>
+                                <option value="7300">7300</option>
+                                <option value="7400">7400</option>
+                                <option value="7500">7500</option>
+                                <option value="7600">7600</option>
+                                <option value="7700">7700</option>
+                                <option value="7800">7800</option>
+                                <option value="7900">7900</option>
+                                <option value="8000">8000</option>
+                                <option value="8100">8100</option>
+                                <option value="8200">8200</option>
+                                <option value="8300">8300</option>
+                                <option value="8400">8400</option>
+                                <option value="8500">8500</option>
+                                <option value="8600">8600</option>
+                                <option value="8700">8700</option>
+                                <option value="8800">8800</option>
+                                <option value="8900">8900</option>
+                                <option value="9000">9000</option>
+                                <option value="9100">9100</option>
+                                <option value="9200">9200</option>
+                                <option value="9300">9300</option>
+                                <option value="9400">9400</option>
+                                <option value="9500">9500</option>
+                                <option value="9600">9600</option>
+                                <option value="9700">9700</option>
+                                <option value="9800">9800</option>
+                                <option value="9900">9900</option>
+                                <option value="10000">10000</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="contractDuration">مدت قرارداد (ماه)</label>
+                            <input type="number" id="contractDuration" name="contractDuration" min="1" oninput="calculateEndDate()">
+                        </div>
+                        <div class="form-group full-width">
+                            <label>تاریخ شروع قرارداد</label>
+                            <div class="date-group">
+                                <div class="date-input-group">
+                                    <label for="contractStartShamsi">شمسی</label>
+                                    <div class="date-input-wrapper">
+                                        <input type="text" id="contractStartShamsi" name="contractStartShamsi" placeholder="1403/01/01" onchange="convertShamsiToMiladi('contractStart'); calculateEndDate();" onclick="showPersianCalendar('contractStart', 'shamsi')">
+                                        <span class="calendar-icon" onclick="showPersianCalendar('contractStart', 'shamsi')"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z" fill="currentColor"/></svg></span>
+                                    </div>
+                                </div>
+                                <div class="date-input-group">
+                                    <label for="contractStartMiladi">میلادی</label>
+                                    <div class="date-input-wrapper">
+                                        <input type="date" id="contractStartMiladi" name="contractStartMiladi" onchange="convertMiladiToShamsi('contractStart'); calculateEndDate();">
+                                        <span class="calendar-icon" onclick="openNativeDatePicker('contractStartMiladi')">
+                                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z" fill="currentColor"/>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>تاریخ پایان قرارداد</label>
+                            <div class="date-group">
+                                <div class="date-input-group">
+                                    <label for="contractEndShamsi">شمسی</label>
+                                    <input type="text" id="contractEndShamsi" name="contractEndShamsi" readonly>
+                                </div>
+                                <div class="date-input-group">
+                                    <label for="contractEndMiladi">میلادی</label>
+                                    <div class="date-input-wrapper">
+                                        <input type="date" id="contractEndMiladi" name="contractEndMiladi" readonly>
+                                        <span class="calendar-icon" style="pointer-events: none; opacity: 0.5;">
+                                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z" fill="currentColor"/>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="closeUserModal()">انصراف</button>
+                        <button type="submit" class="btn btn-primary" id="submitBtn">ذخیره کاربر</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="persian-date.js?v=2"></script>
+    <script>
+        // تست اولیه تبدیل تاریخ
+        console.log('🧪 تست کتابخانه تبدیل تاریخ:');
+        try {
+            const testPersianDate = new PersianDate();
+            console.log('✅ کتابخانه PersianDate بارگذاری شد');
+            
+            // تست 24 آذر 1366 -> 15 دسامبر 1987
+            const testResult1 = testPersianDate.shamsiToMiladi(1366, 9, 24);
+            console.log('📅 تست تبدیل: 1366/09/24 شمسی =', testResult1);
+            console.log('انتظار: 15 دسامبر 1987');
+            
+            // تست معکوس: 15 دسامبر 1987 -> 24 آذر 1366
+            const testResult2 = testPersianDate.miladiToShamsi(1987, 12, 15);
+            console.log('📅 تست معکوس: 15/12/1987 میلادی =', testResult2);
+            console.log('انتظار: 24 آذر 1366');
+            
+        } catch (error) {
+            console.error('❌ خطا در بارگذاری کتابخانه:', error);
+        }
+
+        let users = [];
+        let editingUserId = null;
+
+        // تبدیل تاریخ شمسی به میلادی
+        function convertShamsiToMiladi(type) {
+            const shamsiInput = document.getElementById(type + 'DateShamsi') || document.getElementById(type + 'Shamsi');
+            const miladiInput = document.getElementById(type + 'DateMiladi') || document.getElementById(type + 'Miladi');
+            
+            if (shamsiInput && miladiInput && shamsiInput.value) {
+                try {
+                    const shamsiParts = shamsiInput.value.split('/');
+                    if (shamsiParts.length === 3) {
+                        const year = parseInt(shamsiParts[0]);
+                        const month = parseInt(shamsiParts[1]);
+                        const day = parseInt(shamsiParts[2]);
+                        
+                        // بررسی معتبر بودن تاریخ
+                        if (year > 0 && month >= 1 && month <= 12 && day >= 1 && day <= 31) {
+                            // استفاده از کتابخانه PersianDate
+                            const persianDate = new PersianDate();
+                            const gregorianDate = persianDate.shamsiToMiladi(year, month, day);
+                            
+                            // تبدیل به فرمت ISO برای input میلادی
+                            const miladiFormatted = `${gregorianDate.year}-${gregorianDate.month.toString().padStart(2, '0')}-${gregorianDate.day.toString().padStart(2, '0')}`;
+                            miladiInput.value = miladiFormatted;
+                            
+                            if (type === 'contractStart') {
+                                
+                            }
+                        }
+                    }
+                } catch (error) {
+                    console.error('خطا در تبدیل تاریخ شمسی:', error);
+                    miladiInput.value = '';
+                }
+            }
+        }
+
+        // تبدیل تاریخ میلادی به شمسی
+        function convertMiladiToShamsi(type) {
+            const miladiInput = document.getElementById(type + 'DateMiladi') || document.getElementById(type + 'Miladi');
+            const shamsiInput = document.getElementById(type + 'DateShamsi') || document.getElementById(type + 'Shamsi');
+            
+            if (miladiInput && shamsiInput && miladiInput.value) {
+                try {
+                    const miladiDate = new Date(miladiInput.value);
+                    const year = miladiDate.getFullYear();
+                    const month = miladiDate.getMonth() + 1;
+                    const day = miladiDate.getDate();
+                    
+                    // بررسی معتبر بودن تاریخ
+                    if (!isNaN(miladiDate.getTime())) {
+                        // استفاده از کتابخانه PersianDate برای تبدیل معکوس
+                        const persianDate = new PersianDate();
+                        const shamsiDate = persianDate.miladiToShamsi(year, month, day);
+                        shamsiInput.value = `${shamsiDate.year}/${shamsiDate.month.toString().padStart(2, '0')}/${shamsiDate.day.toString().padStart(2, '0')}`;
+                        
+                        if (type === 'contractStart') {
+                            
+                        }
+                    }
+                } catch (error) {
+                    console.error('خطا در تبدیل تاریخ میلادی:', error);
+                    shamsiInput.value = '';
+                }
+            }
+        }
+
+        /* باز کردن انتخاب‌گر تاریخ بومی برای input[type=date] */
+        function openNativeDatePicker(inputId) {
+            const el = document.getElementById(inputId);
+            if (!el) return;
+            try {
+                if (typeof el.showPicker === 'function') {
+                    el.showPicker();
+                    return;
+                }
+            } catch (e) {}
+            // fallback برای مرورگرهای قدیمی‌تر
+            el.focus();
+            el.click();
+        }
+
+        // نمایش تقویم شمسی
+        function showPersianCalendar(type, dateType) {
+            // ایجاد backdrop
+            const backdrop = document.createElement('div');
+            backdrop.id = 'calendarBackdrop';
+            backdrop.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                z-index: 9999;
+            `;
+            backdrop.onclick = function() { closePersianCalendar(); };
+            
+            // تاریخ فعلی - استفاده از تاریخ ساده
+            const today = new Date();
+            let currentYear = 1404; // سال فعلی شمسی
+            let currentMonth = 6; // مهر ماه
+            
+            // اگر مقدار قبلی وجود دارد، از آن استفاده کن
+            const input = document.getElementById(type + 'DateShamsi') || document.getElementById(type + 'Shamsi');
+            if (input && input.value) {
+                const parts = input.value.split('/');
+                if (parts.length === 3) {
+                    currentYear = parseInt(parts[0]);
+                    currentMonth = parseInt(parts[1]);
+                }
+            }
+            
+            // ایجاد عنصر تقویم
+            const calendarDiv = document.createElement('div');
+            calendarDiv.id = 'persianCalendar';
+            calendarDiv.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+                border: 2px solid #3498db;
+                border-radius: 15px;
+                padding: 25px;
+                z-index: 10000;
+                box-shadow: 0 15px 35px rgba(52, 152, 219, 0.3), 0 5px 15px rgba(0,0,0,0.1);
+                width: 350px;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                direction: rtl;
+                text-align: center;
+                color: #2c3e50;
+            `;
+            
+            function getDaysInMonth(year, month) {
+                // تعداد روزهای هر ماه شمسی
+                const daysInMonths = [31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29];
+                if (month <= 12) {
+                    // بررسی سال کبیسه برای اسفند
+                    if (month === 12) {
+                        return ((year % 33) % 4 === 1) ? 30 : 29;
+                    }
+                    return daysInMonths[month - 1];
+                }
+                return 30;
+            }
+            
+            function renderCalendar() {
+                const monthNames = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'];
+                const daysInMonth = getDaysInMonth(currentYear, currentMonth);
+                
+                // ایجاد dropdown سال
+                let yearOptions = '';
+                const startYear = 1350;
+                const endYear = 1450;
+                for (let year = startYear; year <= endYear; year++) {
+                    const isActive = year === currentYear ? 'background: #3498db; color: white;' : 'background: white; color: #2c3e50;';
+                    yearOptions += `<div onclick="selectYear(${year})" style="padding: 8px 12px; cursor: pointer; ${isActive} transition: all 0.2s;" onmouseover="if(${year} !== ${currentYear}) this.style.backgroundColor='#f8f9fa';" onmouseout="if(${year} !== ${currentYear}) this.style.backgroundColor='white';">${year}</div>`;
+                }
+
+                let calendarHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: #3498db; color: white; padding: 15px; border-radius: 10px; margin: -10px -10px 20px -10px;">
+                        <button type="button" onclick="changeMonth(-1)" style="background: rgba(255,255,255,0.2); color: white; border: none; border-radius: 50%; width: 35px; height: 35px; cursor: pointer; font-size: 16px; transition: all 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">&lt;</button>
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                            <span style="font-weight: bold; font-size: 16px; color: white;">${monthNames[currentMonth - 1]}</span>
+                            <div style="position: relative;">
+                                <button type="button" id="yearDropdownBtn" onclick="toggleYearDropdown()" style="background: rgba(255,255,255,0.9); color: #2c3e50; border: none; border-radius: 8px; padding: 6px 12px; font-size: 14px; font-weight: bold; cursor: pointer; text-align: center; outline: none; min-width: 60px;">
+                                    ${currentYear} ▼
+                                </button>
+                                <div id="yearDropdownMenu" style="display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background: white; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); max-height: 200px; overflow-y: auto; z-index: 1000; min-width: 80px;">
+                                    ${yearOptions}
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" onclick="changeMonth(1)" style="background: rgba(255,255,255,0.2); color: white; border: none; border-radius: 50%; width: 35px; height: 35px; cursor: pointer; font-size: 16px; transition: all 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">&gt;</button>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; text-align: center; margin-bottom: 15px;">
+                        <div style="font-weight: bold; padding: 10px; background: #f39c12; color: white; border-radius: 8px; font-size: 14px;">ش</div>
+                        <div style="font-weight: bold; padding: 10px; background: #f39c12; color: white; border-radius: 8px; font-size: 14px;">ی</div>
+                        <div style="font-weight: bold; padding: 10px; background: #f39c12; color: white; border-radius: 8px; font-size: 14px;">د</div>
+                        <div style="font-weight: bold; padding: 10px; background: #f39c12; color: white; border-radius: 8px; font-size: 14px;">س</div>
+                        <div style="font-weight: bold; padding: 10px; background: #f39c12; color: white; border-radius: 8px; font-size: 14px;">چ</div>
+                        <div style="font-weight: bold; padding: 10px; background: #f39c12; color: white; border-radius: 8px; font-size: 14px;">پ</div>
+                        <div style="font-weight: bold; padding: 10px; background: #f39c12; color: white; border-radius: 8px; font-size: 14px;">ج</div>
+                `;
+                
+                // محاسبه روز اول ماه (ساده‌سازی شده)
+                const firstDayOfWeek = (currentYear + currentMonth) % 7;
+                
+                // روزهای خالی ابتدای ماه
+                for (let i = 0; i < firstDayOfWeek; i++) {
+                    calendarHTML += '<div style="padding: 12px; opacity: 0.3;"></div>';
+                }
+                
+                // روزهای ماه
+                for (let day = 1; day <= daysInMonth; day++) {
+                    calendarHTML += `<div style="padding: 12px; cursor: pointer; border-radius: 8px; border: 1px solid #e8f4fd; background: white; color: #2c3e50; font-weight: 500; transition: all 0.3s; font-size: 14px;" onclick="selectDate(${day})" onmouseover="this.style.backgroundColor='#3498db'; this.style.color='white'; this.style.transform='scale(1.1)'" onmouseout="this.style.backgroundColor='white'; this.style.color='#2c3e50'; this.style.transform='scale(1)'">${day}</div>`;
+                }
+                
+                calendarHTML += `
+                    </div>
+                    <div style="margin-top: 20px; text-align: center; border-top: 1px solid #e8f4fd; padding-top: 15px;">
+                        <button type="button" onclick="selectToday()" style="background: linear-gradient(135deg, #f39c12, #e67e22); color: white; border: none; border-radius: 25px; padding: 10px 20px; cursor: pointer; margin-left: 10px; font-weight: 500; transition: all 0.3s; box-shadow: 0 3px 10px rgba(243, 156, 18, 0.3);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 5px 15px rgba(243, 156, 18, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 3px 10px rgba(243, 156, 18, 0.3)'">امروز</button>
+                        <button type="button" onclick="closePersianCalendar()" style="background: linear-gradient(135deg, #95a5a6, #7f8c8d); color: white; border: none; border-radius: 25px; padding: 10px 20px; cursor: pointer; font-weight: 500; transition: all 0.3s; box-shadow: 0 3px 10px rgba(149, 165, 166, 0.3);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 5px 15px rgba(149, 165, 166, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 3px 10px rgba(149, 165, 166, 0.3)'">بستن</button>
+                    </div>
+                `;
+                
+                calendarDiv.innerHTML = calendarHTML;
+            }
+            
+            // اضافه کردن backdrop و تقویم به صفحه
+            document.body.appendChild(backdrop);
+            document.body.appendChild(calendarDiv);
+            
+            // توابع کنترل تقویم
+            window.changeMonth = function(direction) {
+                currentMonth += direction;
+                if (currentMonth > 12) {
+                    currentMonth = 1;
+                    currentYear++;
+                } else if (currentMonth < 1) {
+                    currentMonth = 12;
+                    currentYear--;
+                }
+                renderCalendar();
+            };
+
+            window.changeYear = function(year) {
+                currentYear = parseInt(year);
+                renderCalendar();
+            };
+
+            window.toggleYearDropdown = function() {
+                const menu = document.getElementById('yearDropdownMenu');
+                const isVisible = menu.style.display === 'block';
+                menu.style.display = isVisible ? 'none' : 'block';
+            };
+
+            window.selectYear = function(year) {
+                currentYear = year;
+                document.getElementById('yearDropdownMenu').style.display = 'none';
+                renderCalendar();
+            };
+
+            // بستن dropdown با کلیک خارج از آن
+            document.addEventListener('click', function(event) {
+                const dropdown = document.getElementById('yearDropdownMenu');
+                const button = document.getElementById('yearDropdownBtn');
+                if (dropdown && button && !dropdown.contains(event.target) && !button.contains(event.target)) {
+                    dropdown.style.display = 'none';
+                }
+            });
+            
+            window.selectDate = function(day) {
+                const selectedDate = `${currentYear}/${currentMonth.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}`;
+                const input = document.getElementById(type + 'DateShamsi') || document.getElementById(type + 'Shamsi');
+                if (input) {
+                    input.value = selectedDate;
+                    // تبدیل خودکار به میلادی
+                    if (type === 'birth') {
+                        convertShamsiToMiladi('birth');
+                    } else if (type === 'contractStart') {
+                        convertShamsiToMiladi('contractStart');
+                    }
+                }
+                closePersianCalendar();
+            };
+            
+            window.selectToday = function() {
+                // گرفتن تاریخ امروز میلادی
+                const todayMiladi = new Date();
+                const year = todayMiladi.getFullYear();
+                const month = todayMiladi.getMonth() + 1;
+                const day = todayMiladi.getDate();
+                
+                // تبدیل به شمسی
+                const persianDate = new PersianDate();
+                const todayShamsi = persianDate.miladiToShamsi(year, month, day);
+                const todayDate = `${todayShamsi.year}/${todayShamsi.month.toString().padStart(2, '0')}/${todayShamsi.day.toString().padStart(2, '0')}`;
+                
+                const input = document.getElementById(type + 'DateShamsi') || document.getElementById(type + 'Shamsi');
+                if (input) {
+                    input.value = todayDate;
+                    // تبدیل خودکار به میلادی
+                    if (type === 'birth') {
+                        convertShamsiToMiladi('birth');
+                    } else if (type === 'contractStart') {
+                        convertShamsiToMiladi('contractStart');
+                    }
+                }
+                closePersianCalendar();
+            };
+            
+            window.closePersianCalendar = function() {
+                const calendar = document.getElementById('persianCalendar');
+                const backdrop = document.getElementById('calendarBackdrop');
+                if (calendar) {
+                    calendar.remove();
+                }
+                if (backdrop) {
+                    backdrop.remove();
+                }
+                // حذف توابع global
+                delete window.changeMonth;
+                delete window.selectDate;
+                delete window.selectToday;
+                delete window.closePersianCalendar;
+            };
+            
+            renderCalendar();
+        }
+
+        // مدیریت آپلود عکس
+        document.getElementById('userPhoto').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.getElementById('previewImage');
+                    const noPhotoText = document.getElementById('noPhotoText');
+                    const removeBtn = document.getElementById('removePhotoBtn');
+                    
+                    img.src = e.target.result;
+                    img.style.display = 'block';
+                    noPhotoText.style.display = 'none';
+                    removeBtn.style.display = 'inline-block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function removePhoto() {
+            const img = document.getElementById('previewImage');
+            const noPhotoText = document.getElementById('noPhotoText');
+            const removeBtn = document.getElementById('removePhotoBtn');
+            const fileInput = document.getElementById('userPhoto');
+            
+            img.style.display = 'none';
+            noPhotoText.style.display = 'block';
+            removeBtn.style.display = 'none';
+            fileInput.value = '';
+        }
+
+        
+        // تابع اصلاح شده برای پر کردن داده‌های نمونه
+        function fillSampleData() {
+            document.getElementById('firstName').value = 'علی';
+            document.getElementById('lastName').value = 'احمدی';
+            document.getElementById('fatherName').value = 'محمد';
+            document.getElementById('nationalId').value = '1234567890';
+            document.getElementById('birthPlace').value = 'تهران';
+            document.getElementById('birthDateShamsi').value = '1370/05/15';
+            convertShamsiToMiladi('birth'); // تبدیل تاریخ تولد
+            
+            document.getElementById('mobile').value = '09123456789';
+            document.getElementById('phone').value = '02188776655';
+            document.getElementById('email').value = 'ali.ahmadi@example.com';
+            document.getElementById('address').value = 'تهران، خیابان ولیعصر، پلاک ۱۲۳';
+            
+            document.getElementById('employeeId').value = 'PT-1001';
+            document.getElementById('jobType').value = 'advanced-b';
+            document.getElementById('dailyWorkCount').value = '2500';
+
+            document.getElementById('contractDuration').value = '12';
+            document.getElementById('contractStartShamsi').value = '1403/01/01';
+            convertShamsiToMiladi('contractStart'); // تبدیل تاریخ شروع قرارداد
+            
+            // فراخوانی نهایی برای محاسبه تاریخ پایان
+            calculateEndDate(); 
+        }
+
+        // تبدیل کد نوع کار به متن فارسی
+        function getJobTypeText(jobType) {
+            const jobTypes = {
+                'simple-a': 'کار ساده نوع A',
+                'simple-b': 'کار ساده نوع B', 
+                'simple-c': 'کار ساده نوع C',
+                'advanced-a': 'کارالگوریتم پیشرفته نوع A',
+                'advanced-b': 'کارالگوریتم پیشرفته نوع B',
+                'advanced-c': 'کارالگوریتم پیشرفته نوع C'
+            };
+            return jobTypes[jobType] || 'تعریف نشده';
+        }
+
+        // محاسبه تاریخ پایان قرارداد
+        // تابع قبلی را حذف کرده و این کد جدید را جایگزین کنید
+
+        // کد جدید و اصلاح شده برای محاسبه تاریخ پایان
+        function calculateEndDate() {
+            const durationInput = document.getElementById('contractDuration');
+            const startShamsiInput = document.getElementById('contractStartShamsi');
+            const endShamsiInput = document.getElementById('contractEndShamsi');
+            const endMiladiInput = document.getElementById('contractEndMiladi');
+
+            const duration = parseInt(durationInput.value);
+            const startDateShamsi = startShamsiInput.value;
+
+            if (!duration || !startDateShamsi || !/^\d{4}\/\d{2}\/\d{2}$/.test(startDateShamsi)) {
+                endShamsiInput.value = '';
+                endMiladiInput.value = '';
+                return;
+            }
+
+            try {
+                const parts = startDateShamsi.split('/');
+                let year = parseInt(parts[0]);
+                let month = parseInt(parts[1]);
+                let day = parseInt(parts[2]);
+
+                month += duration;
+
+                while (month > 12) {
+                    month -= 12;
+                    year += 1;
+                }
+
+                // START: بخش اصلاح شده برای محاسبه روزهای ماه
+                let daysInMonth;
+                if (month >= 1 && month <= 6) {
+                    daysInMonth = 31;
+                } else if (month >= 7 && month <= 11) {
+                    daysInMonth = 30;
+                } else if (month === 12) {
+                    // برای ماه اسفند، سال کبیسه را با تابع isLeap چک می‌کنیم
+                    daysInMonth = new PersianDate().isLeap(year) ? 30 : 29;
+                } else {
+                    daysInMonth = 30; // Fallback
+                }
+
+                if (day > daysInMonth) {
+                    day = daysInMonth;
+                }
+                // END: پایان بخش اصلاح شده
+
+                const endDateShamsi = `${year}/${String(month).padStart(2, '0')}/${String(day).padStart(2, '0')}`;
+                endShamsiInput.value = endDateShamsi;
+
+                const pd = new PersianDate();
+                const gregorianEndDate = pd.shamsiToMiladi(year, month, day);
+                const endDateMiladi = `${gregorianEndDate.year}-${String(gregorianEndDate.month).padStart(2, '0')}-${String(gregorianEndDate.day).padStart(2, '0')}`;
+                endMiladiInput.value = endDateMiladi;
+
+            } catch (error) {
+                console.error("خطا در محاسبه تاریخ پایان:", error);
+                endShamsiInput.value = 'خطا در محاسبه';
+                endMiladiInput.value = '';
+            }
+        }
+
+        // باز کردن modal افزودن کاربر
+        function openAddUserModal() {
+            editingUserId = null;
+            document.getElementById('modalTitle').textContent = 'افزودن کاربر جدید';
+            document.getElementById('submitBtn').textContent = 'ذخیره کاربر';
+            document.getElementById('userForm').reset();
+            const modal = document.getElementById('userModal');
+            modal.style.display = 'block';
+            // Reset animation for fresh effect each time
+            const modalContent = modal.querySelector('.modal-content');
+            modalContent.style.animation = 'none';
+            modalContent.offsetHeight; // Trigger reflow
+            modalContent.style.animation = 'slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+        }
+
+        // باز کردن modal ویرایش کاربر
+        function editUser(userId) {
+            const user = users.find(u => u.id === userId);
+            if (!user) return;
+            
+            editingUserId = userId;
+            document.getElementById('modalTitle').textContent = 'ویرایش کاربر';
+            document.getElementById('submitBtn').textContent = 'بروزرسانی کاربر';
+            
+            // پر کردن فرم با داده‌های کاربر
+            Object.keys(user).forEach(key => {
+                const input = document.getElementById(key);
+                if (input) {
+                    input.value = user[key];
+                }
+            });
+            
+            document.getElementById('userModal').style.display = 'block';
+        }
+
+        // بستن modal
+        function closeUserModal() {
+            document.getElementById('userModal').style.display = 'none';
+            editingUserId = null;
+        }
+
+        // ریست پسورد کاربر
+        function resetPassword(userId) {
+            const user = users.find(u => u.id === userId);
+            if (!user) return;
+            
+            if (confirm(`آیا می‌خواهید پسورد ${user.firstName} ${user.lastName} را ریست کنید؟`)) {
+                // ارسال درخواست ریست پسورد به سرور
+                const newPassword = generateRandomPassword();
+                alert(`پسورد جدید: ${newPassword}\nلطفاً این پسورد را به کاربر اطلاع دهید.`);
+            }
+        }
+
+        // حذف کاربر
+        function deleteUser(userId) {
+            const user = users.find(u => u.id === userId);
+            if (!user) return;
+            
+            if (confirm(`آیا می‌خواهید ${user.firstName} ${user.lastName} را حذف کنید؟`)) {
+                users = users.filter(u => u.id !== userId);
+                renderUsers();
+            }
+        }
+
+        // تولید پسورد تصادفی
+        function generateRandomPassword() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let password = '';
+            for (let i = 0; i < 8; i++) {
+                password += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return password;
+        }
+
+        // جستجو در کاربران
+        function searchUsers() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const filteredUsers = users.filter(user => {
+                return user.firstName.toLowerCase().includes(searchTerm) ||
+                       user.lastName.toLowerCase().includes(searchTerm) ||
+                       user.nationalId.includes(searchTerm) ||
+                       user.email.toLowerCase().includes(searchTerm) ||
+                       user.employeeId.toLowerCase().includes(searchTerm);
+            });
+            renderUsers(filteredUsers);
+        }
+
+        // نمایش کاربران در جدول
+        function renderUsers(usersToShow = users) {
+            const tbody = document.getElementById('usersTableBody');
+            const emptyState = document.getElementById('emptyState');
+            
+            if (usersToShow.length === 0) {
+                tbody.innerHTML = '';
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            tbody.innerHTML = usersToShow.map(user => `
+                <tr>
+                    <td>${user.firstName} ${user.lastName}</td>
+                    <td>${user.nationalId}</td>
+                    <td>${user.email}</td>
+                    <td>${user.employeeId}</td>
+                    <td>${getJobTypeText(user.jobType)}</td>
+                    <td><span class="status-badge status-active">فعال</span></td>
+                    <td>
+                        <button class="action-btn edit-btn" onclick="editUser('${user.id}')">ویرایش</button>
+                        <button class="action-btn reset-btn" onclick="resetPassword('${user.id}')">ریست پسورد</button>
+                        <button class="action-btn delete-btn" onclick="deleteUser('${user.id}')">حذف</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        
+        // کد جدید برای کنترل منوی کشویی
+        const dailyWorkCountSelect = document.getElementById('dailyWorkCount');
+
+        // باز/بستن نرم بدون پرش روی دسکتاپ (mousedown) و موبایل (touchstart)
+        dailyWorkCountSelect.addEventListener('mousedown', function(e) {
+            if (e.target !== this) return; // نذار کلیک روی option این هندلر را اجرا کند
+            e.preventDefault(); // جلوگیری از باز شدن بومی مرورگر (چشمک)
+            if (this.size > 0) {
+                this.size = 0;
+                this.blur();
+            } else {
+                this.focus();
+                this.size = Math.min(10, this.options.length);
+            }
+        });
+
+        dailyWorkCountSelect.addEventListener('touchstart', function(e) {
+            if (e.target !== this) return;
+            e.preventDefault();
+            if (this.size > 0) {
+                this.size = 0;
+                this.blur();
+            } else {
+                this.focus();
+                this.size = Math.min(10, this.options.length);
+            }
+        }, { passive: false });
+
+        // رویداد برای بستن لیست پس از انتخاب یک گزینه
+        dailyWorkCountSelect.addEventListener('change', function() {
+            this.size = 0;
+        });
+
+        // رویداد برای بستن لیست اگر کاربر به بیرون کلیک کرد
+        dailyWorkCountSelect.addEventListener('blur', function() {
+            this.size = 0;
+        });
+
+        // اعمال همان رفتار برای منوی «نوع کار» تا ظاهر منوی باز یکی شود
+        const jobTypeSelect = document.getElementById('jobType');
+        jobTypeSelect.addEventListener('mousedown', function(e) {
+            if (e.target !== this) return;
+            e.preventDefault();
+            if (this.size > 0) {
+                this.size = 0;
+                this.blur();
+            } else {
+                this.focus();
+                this.size = Math.min(10, this.options.length);
+            }
+        });
+
+        jobTypeSelect.addEventListener('touchstart', function(e) {
+            if (e.target !== this) return;
+            e.preventDefault();
+            if (this.size > 0) {
+                this.size = 0;
+                this.blur();
+            } else {
+                this.focus();
+                this.size = Math.min(10, this.options.length);
+            }
+        }, { passive: false });
+
+        // بستن با change/blur مانند dailyWorkCount
+        jobTypeSelect.addEventListener('change', function() {
+            this.size = 0;
+        });
+        jobTypeSelect.addEventListener('blur', function() {
+            this.size = 0;
+        });
+
+        // بستن فوری کادر پس از کلیک روی هر گزینه (و پشتیبانی از Enter/Escape)
+        function wireInstantClose(selectEl) {
+            // هنگام کلیک روی گزینه، همان لحظه ببند (حتی اگر گزینه قبلاً انتخاب شده بود)
+            selectEl.addEventListener('mousedown', function(e) {
+                const opt = e.target;
+                if (opt && opt.tagName === 'OPTION') {
+                    const options = Array.from(this.options);
+                    const idx = options.indexOf(opt);
+                    if (idx > -1) this.selectedIndex = idx;
+                    this.dispatchEvent(new Event('change', { bubbles: true }));
+                    this.size = 0;
+                    this.blur();
+                    e.preventDefault();
+                }
+            });
+
+            // کلیدهای Enter و Escape نیز منو را می‌بندند
+            selectEl.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === 'Escape') {
+                    this.size = 0;
+                    this.blur();
+                    e.preventDefault();
+                }
+            });
+        }
+
+        // اعمال رفتار بستن فوری برای هر دو منو
+        wireInstantClose(dailyWorkCountSelect);
+        wireInstantClose(jobTypeSelect);
+
+        // بستن منوها با کلیک خارج از کادر (برای هر دو select)
+        function closeDropdownsOnOutsideClick(e) {
+            const selects = [dailyWorkCountSelect, jobTypeSelect];
+            const clickedInside = selects.some(sel => sel && sel.contains(e.target));
+            if (!clickedInside) {
+                selects.forEach(sel => {
+                    if (sel && sel.size > 0) {
+                        sel.size = 0;
+                        sel.blur();
+                    }
+                });
+            }
+        }
+
+        document.addEventListener('mousedown', closeDropdownsOnOutsideClick, true);
+        document.addEventListener('touchstart', closeDropdownsOnOutsideClick, { passive: true, capture: true });
+
+        // ذخیره کاربر
+
+        document.getElementById('userForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const userData = {};
+            formData.forEach((value, key) => {
+                userData[key] = value;
+            });
+            
+            if (editingUserId) {
+                // بروزرسانی کاربر
+                const userIndex = users.findIndex(u => u.id === editingUserId);
+                if (userIndex !== -1) {
+                    users[userIndex] = { id: editingUserId, ...userData };
+                }
+            } else {
+                // افزودن کاربر جدید
+                const newUser = { id: 'user-' + Date.now(), ...userData };
+                users.push(newUser);
+            }
+            
+            renderUsers();
+            closeUserModal();
+        });
+
+
+        // خروج از سیستم
+        function logout() {
+            if (confirm('آیا می‌خواهید از سیستم خارج شوید؟')) {
+                window.location.href = 'demo.html';
+            }
+        }
+
+        // بستن modal با کلیک روی background
+        document.getElementById('userModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeUserModal();
+            }
+        });
+
+
+        // بارگذاری اولیه
+        document.addEventListener('DOMContentLoaded', function() {
+            renderUsers();
+        });
+    </script>
+</body>
+</html>

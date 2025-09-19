@@ -1,0 +1,10 @@
+/Users/arashnamazi/Desktop/Programlama/Web programlama/Hashemi/target/debug/deps/proc_macro_utils-e20b1521f652288a.d: /Users/arashnamazi/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/proc-macro-utils-0.8.0/src/lib.rs /Users/arashnamazi/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/proc-macro-utils-0.8.0/src/parser.rs /Users/arashnamazi/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/proc-macro-utils-0.8.0/src/assert.rs /Users/arashnamazi/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/proc-macro-utils-0.8.0/src/__private.rs
+
+/Users/arashnamazi/Desktop/Programlama/Web programlama/Hashemi/target/debug/deps/libproc_macro_utils-e20b1521f652288a.rlib: /Users/arashnamazi/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/proc-macro-utils-0.8.0/src/lib.rs /Users/arashnamazi/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/proc-macro-utils-0.8.0/src/parser.rs /Users/arashnamazi/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/proc-macro-utils-0.8.0/src/assert.rs /Users/arashnamazi/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/proc-macro-utils-0.8.0/src/__private.rs
+
+/Users/arashnamazi/Desktop/Programlama/Web programlama/Hashemi/target/debug/deps/libproc_macro_utils-e20b1521f652288a.rmeta: /Users/arashnamazi/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/proc-macro-utils-0.8.0/src/lib.rs /Users/arashnamazi/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/proc-macro-utils-0.8.0/src/parser.rs /Users/arashnamazi/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/proc-macro-utils-0.8.0/src/assert.rs /Users/arashnamazi/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/proc-macro-utils-0.8.0/src/__private.rs
+
+/Users/arashnamazi/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/proc-macro-utils-0.8.0/src/lib.rs:
+/Users/arashnamazi/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/proc-macro-utils-0.8.0/src/parser.rs:
+/Users/arashnamazi/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/proc-macro-utils-0.8.0/src/assert.rs:
+/Users/arashnamazi/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/proc-macro-utils-0.8.0/src/__private.rs:

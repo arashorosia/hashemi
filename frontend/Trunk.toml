@@ -1,0 +1,15 @@
+[build]
+target = "index.html"
+dist = "dist"
+
+[watch]
+watch = ["src"]
+
+[serve]
+address = "127.0.0.1"
+port = 8080
+open = false
+
+[[copy]]
+from = "style.css"
+to = "style.css"
