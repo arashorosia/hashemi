@@ -546,13 +546,35 @@
 
         .date-input-wrapper input {
             width: 100%;
-            padding: 0.75rem 3rem 0.75rem 1rem;
+            padding: 0.75rem 1rem 0.75rem 2.75rem; /* فضای کافی برای آیکن سمت چپ */
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 8px;
-            color: white;
+            color: rgba(255, 255, 255, 0.7); /* طوسی مثل فیلد شمسی */
             font-family: inherit;
             font-size: 0.875rem;
+            direction: rtl;
+            text-align: right;
+        }
+
+        /* Placeholder color to match Shamsi field */
+        .date-input-wrapper input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+            opacity: 1;
+        }
+
+        /* Ensure date input text uses the same grey color across WebKit */
+        .date-input-wrapper input[type="date"]::-webkit-datetime-edit,
+        .date-input-wrapper input[type="date"]::-webkit-datetime-edit-text,
+        .date-input-wrapper input[type="date"]::-webkit-datetime-edit-year-field,
+        .date-input-wrapper input[type="date"]::-webkit-datetime-edit-month-field,
+        .date-input-wrapper input[type="date"]::-webkit-datetime-edit-day-field {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Prevent extra internal padding that can push text into the icon area */
+        .date-input-wrapper input[type="date"]::-webkit-datetime-edit-fields-wrapper {
+            padding: 0;
         }
 
         .date-input-wrapper input:focus {
@@ -819,7 +841,7 @@
                                 <div class="date-input-group">
                                     <label for="birthDateMiladi">میلادی</label>
                                     <div class="date-input-wrapper">
-                                        <input type="date" id="birthDateMiladi" name="birthDateMiladi" onchange="convertMiladiToShamsi('birth')">
+                                        <input type="date" id="birthDateMiladi" name="birthDateMiladi" onchange="convertMiladiToShamsi('birth')" onclick="openNativeDatePicker('birthDateMiladi')">
                                         <span class="calendar-icon" onclick="openNativeDatePicker('birthDateMiladi')">
                                             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z" fill="currentColor"/>
@@ -984,7 +1006,7 @@
                                 <div class="date-input-group">
                                     <label for="contractStartMiladi">میلادی</label>
                                     <div class="date-input-wrapper">
-                                        <input type="date" id="contractStartMiladi" name="contractStartMiladi" onchange="convertMiladiToShamsi('contractStart'); calculateEndDate();">
+                                        <input type="date" id="contractStartMiladi" name="contractStartMiladi" onchange="convertMiladiToShamsi('contractStart'); calculateEndDate();" onclick="openNativeDatePicker('contractStartMiladi')">
                                         <span class="calendar-icon" onclick="openNativeDatePicker('contractStartMiladi')">
                                             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z" fill="currentColor"/>
@@ -1128,6 +1150,45 @@
             el.focus();
             el.click();
         }
+
+        // --- Auto-open native date picker when clicking on the input itself or wrapper (not only the icon)
+        (function wireDateInputsAutoOpen() {
+            function tryOpen(el) {
+                try {
+                    if (typeof el.showPicker === 'function') {
+                        el.showPicker();
+                        return;
+                    }
+                } catch (e) {}
+                // Fallback: focus (some browsers open picker on focus)
+                el.focus();
+            }
+            // Wire inputs directly
+            document.querySelectorAll('.date-input-wrapper input[type="date"]:not([readonly])').forEach(function(el){
+                if (el.dataset.pickerWired === '1') return;
+                el.dataset.pickerWired = '1';
+                el.addEventListener('click', function(){ tryOpen(el); });
+                el.addEventListener('keydown', function(ev){
+                    if (ev.key === 'Enter' || ev.key === ' ') {
+                        ev.preventDefault();
+                        tryOpen(el);
+                    }
+                });
+            });
+            // Also allow clicking anywhere inside the wrapper to open
+            document.querySelectorAll('.date-input-wrapper').forEach(function(wrapper){
+                const dateInput = wrapper.querySelector('input[type="date"]:not([readonly])');
+                if (!dateInput) return;
+                if (wrapper.dataset.pickerWired === '1') return;
+                wrapper.dataset.pickerWired = '1';
+                wrapper.addEventListener('click', function(e){
+                    // If click wasn't directly on the input or icon, still open
+                    if (e.target !== dateInput && !e.target.closest('.calendar-icon')) {
+                        tryOpen(dateInput);
+                    }
+                });
+            });
+        })();
 
         // نمایش تقویم شمسی
         function showPersianCalendar(type, dateType) {
